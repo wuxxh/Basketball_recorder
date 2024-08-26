@@ -1,9 +1,9 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/26/2024  22:55:53  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/26/2024  23:56:08  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
-D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj, .\Objects\delay.obj TO .\Objects\basketball_recor
->> der PRINT (.\Listings\basketball_recorder.m51) RAMSIZE (256)
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj, .\Objects\delay.obj, .\Objects\display.obj TO .\O
+>> bjects\basketball_recorder PRINT (.\Listings\basketball_recorder.m51) RAMSIZE (256)
 
 
 MEMORY MODEL: SMALL
@@ -13,6 +13,7 @@ INPUT MODULES INCLUDED:
   .\Objects\STARTUP.obj (?C_STARTUP)
   .\Objects\main.obj (MAIN)
   .\Objects\delay.obj (DELAY)
+  .\Objects\display.obj (DISPLAY)
 
 
 LINK MAP OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
@@ -28,8 +29,10 @@ LINK MAP OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
             CODE    0003H     001EH     UNIT         ?PR?_DELAY?DELAY
-            CODE    0021H     000CH     UNIT         ?C_C51STARTUP
-            CODE    002DH     0001H     UNIT         ?PR?MAIN?MAIN
+            CODE    0021H     001EH     UNIT         ?PR?_DISPLAY?DISPLAY
+            CODE    003FH     0013H     UNIT         ?CO?DISPLAY
+            CODE    0052H     000CH     UNIT         ?C_C51STARTUP
+            CODE    005EH     0001H     UNIT         ?PR?MAIN?MAIN
 
 
 
@@ -50,20 +53,20 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   ----------------------------------
 
   -------         MODULE        ?C_STARTUP
-  C:0021H         SEGMENT       ?C_C51STARTUP
+  C:0052H         SEGMENT       ?C_C51STARTUP
   I:0008H         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
   D:0083H         SYMBOL        DPH
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/26/2024  23:56:08  PAGE 2
+
+
   D:0082H         SYMBOL        DPL
   N:0000H         SYMBOL        IBPSTACK
   N:0100H         SYMBOL        IBPSTACKTOP
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/26/2024  22:55:53  PAGE 2
-
-
   N:0080H         SYMBOL        IDATALEN
-  C:0024H         SYMBOL        IDATALOOP
+  C:0055H         SYMBOL        IDATALOOP
   N:0000H         SYMBOL        PBPSTACK
   N:0100H         SYMBOL        PBPSTACKTOP
   N:0000H         SYMBOL        PDATALEN
@@ -72,18 +75,18 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   N:0000H         SYMBOL        PPAGEENABLE
   D:00A0H         SYMBOL        PPAGE_SFR
   D:0081H         SYMBOL        SP
-  C:0021H         SYMBOL        STARTUP1
+  C:0052H         SYMBOL        STARTUP1
   N:0000H         SYMBOL        XBPSTACK
   N:0000H         SYMBOL        XBPSTACKTOP
   N:0000H         SYMBOL        XDATALEN
   N:0000H         SYMBOL        XDATASTART
   C:0000H         LINE#         126
-  C:0021H         LINE#         133
-  C:0023H         LINE#         134
-  C:0024H         LINE#         135
-  C:0025H         LINE#         136
-  C:0027H         LINE#         185
-  C:002AH         LINE#         196
+  C:0052H         LINE#         133
+  C:0054H         LINE#         134
+  C:0055H         LINE#         135
+  C:0056H         LINE#         136
+  C:0058H         LINE#         185
+  C:005BH         LINE#         196
   -------         ENDMOD        ?C_STARTUP
 
   -------         MODULE        MAIN
@@ -92,15 +95,15 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   D:00B0H         PUBLIC        P3
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
-  C:002DH         PUBLIC        main
+  C:005EH         PUBLIC        main
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
   D:00C8H         PUBLIC        T2CON
   D:00D0H         PUBLIC        PSW
   -------         PROC          MAIN
-  C:002DH         LINE#         4
-  C:002DH         LINE#         5
-  C:002DH         LINE#         7
+  C:005EH         LINE#         4
+  C:005EH         LINE#         5
+  C:005EH         LINE#         7
   -------         ENDPROC       MAIN
   -------         ENDMOD        MAIN
 
@@ -116,12 +119,12 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   D:00C8H         PUBLIC        T2CON
   D:00D0H         PUBLIC        PSW
   -------         PROC          _DELAY
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/26/2024  23:56:08  PAGE 3
+
+
   D:0006H         SYMBOL        a
   -------         DO            
   D:0006H         SYMBOL        i
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/26/2024  22:55:53  PAGE 3
-
-
   D:0004H         SYMBOL        j
   -------         ENDDO         
   C:0003H         LINE#         4
@@ -131,8 +134,41 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   -------         ENDPROC       _DELAY
   -------         ENDMOD        DELAY
 
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_DELAY?DELAY
+  -------         MODULE        DISPLAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  B:00A0H.6       PUBLIC        DU
+  D:00B8H         PUBLIC        IP
+  B:00A0H.7       PUBLIC        WE
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        T2CON
+  C:0021H         PUBLIC        _display
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _DISPLAY
+  D:0007H         SYMBOL        location
+  D:0005H         SYMBOL        number
+  -------         DO            
+  C:003FH         SYMBOL        locate
+  C:0047H         SYMBOL        tablel
+  -------         ENDDO         
+  C:0021H         LINE#         10
+  C:0021H         LINE#         38
+  C:0024H         LINE#         39
+  C:0026H         LINE#         40
+  C:002DH         LINE#         42
+  C:002FH         LINE#         43
+  C:0036H         LINE#         44
+  C:0038H         LINE#         45
+  -------         ENDPROC       _DISPLAY
+  -------         ENDMOD        DISPLAY
 
-Program Size: data=9.0 xdata=0 code=46
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DISPLAY?DISPLAY
+
+Program Size: data=9.0 xdata=0 code=95
 LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

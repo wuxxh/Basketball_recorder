@@ -1,5 +1,6 @@
 ".\Objects\STARTUP.obj",
 ".\Objects\main.obj",
-".\Objects\delay.obj" 
+".\Objects\delay.obj",
+".\Objects\display.obj" 
 TO ".\Objects\basketball_recorder" 
 PRINT(".\Listings\basketball_recorder.m51") RAMSIZE(256) 
