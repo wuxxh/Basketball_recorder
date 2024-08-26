@@ -1,9 +1,10 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/26/2024  23:56:08  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    08/27/2024  00:55:21  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
-D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj, .\Objects\delay.obj, .\Objects\display.obj TO .\O
->> bjects\basketball_recorder PRINT (.\Listings\basketball_recorder.m51) RAMSIZE (256)
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj, .\Objects\delay.obj, .\Objects\display.obj, .\Obj
+>> ects\timer.obj, .\Objects\scale_display.obj TO .\Objects\basketball_recorder PRINT (.\Listings\basketball_recorder.m5
+>> 1) RAMSIZE (256)
 
 
 MEMORY MODEL: SMALL
@@ -14,6 +15,9 @@ INPUT MODULES INCLUDED:
   .\Objects\main.obj (MAIN)
   .\Objects\delay.obj (DELAY)
   .\Objects\display.obj (DISPLAY)
+  .\Objects\timer.obj (TIMER)
+  .\Objects\scale_display.obj (SCALE_DISPLAY)
+  D:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
 
 
 LINK MAP OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
@@ -24,15 +28,30 @@ LINK MAP OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-            IDATA   0008H     0001H     UNIT         ?STACK
+            DATA    0008H     000AH     UNIT         ?DT?MAIN
+            DATA    0012H     0005H     UNIT         ?DT?SCALE_DISPLAY
+                    0017H     0009H                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?MAIN
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
-            CODE    0003H     001EH     UNIT         ?PR?_DELAY?DELAY
-            CODE    0021H     001EH     UNIT         ?PR?_DISPLAY?DISPLAY
-            CODE    003FH     0013H     UNIT         ?CO?DISPLAY
-            CODE    0052H     000CH     UNIT         ?C_C51STARTUP
-            CODE    005EH     0001H     UNIT         ?PR?MAIN?MAIN
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     0093H     UNIT         ?PR?TIME?MAIN
+            CODE    00A1H     008CH     UNIT         ?C_C51STARTUP
+            CODE    012DH     004FH     UNIT         ?PR?JIA_DISPLAY?SCALE_DISPLAY
+            CODE    017CH     004FH     UNIT         ?PR?YI_DISPLAY?SCALE_DISPLAY
+            CODE    01CBH     003FH     UNIT         ?PR?MODE_SELECT?SCALE_DISPLAY
+            CODE    020AH     0031H     UNIT         ?PR?COUNT_DOWN_DISPLAY?MAIN
+            CODE    023BH     0022H     UNIT         ?PR?MAIN?MAIN
+            CODE    025DH     001EH     UNIT         ?C_INITSEG
+            CODE    027BH     001EH     UNIT         ?PR?_DELAY?DELAY
+            CODE    0299H     001EH     UNIT         ?PR?_DISPLAY?DISPLAY
+            CODE    02B7H     001CH     UNIT         ?PR?CENTRE_DISPLAY?SCALE_DISPLAY
+            CODE    02D3H     0013H     UNIT         ?CO?DISPLAY
+            CODE    02E6H     0010H     UNIT         ?PR?INIT_TIMER0?TIMER
 
 
 
@@ -40,10 +59,50 @@ OVERLAY MAP OF MODULE:   .\Objects\basketball_recorder (?C_STARTUP)
 
 
 SEGMENT
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/27/2024  00:55:21  PAGE 2
+
+
   +--> CALLED SEGMENT
 ---------------------
 ?C_C51STARTUP
   +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN
+  +--> ?PR?INIT_TIMER0?TIMER
+  +--> ?PR?_DELAY?DELAY
+  +--> ?PR?COUNT_DOWN_DISPLAY?MAIN
+  +--> ?PR?MODE_SELECT?SCALE_DISPLAY
+
+?PR?COUNT_DOWN_DISPLAY?MAIN
+  +--> ?PR?_DISPLAY?DISPLAY
+
+?PR?_DISPLAY?DISPLAY
+  +--> ?CO?DISPLAY
+  +--> ?PR?_DELAY?DELAY
+
+?PR?MODE_SELECT?SCALE_DISPLAY
+  +--> ?PR?_DELAY?DELAY
+  +--> ?PR?JIA_DISPLAY?SCALE_DISPLAY
+  +--> ?PR?CENTRE_DISPLAY?SCALE_DISPLAY
+  +--> ?PR?_DISPLAY?DISPLAY
+  +--> ?PR?YI_DISPLAY?SCALE_DISPLAY
+
+?PR?JIA_DISPLAY?SCALE_DISPLAY
+  +--> ?PR?_DISPLAY?DISPLAY
+  +--> ?PR?_DELAY?DELAY
+
+?PR?CENTRE_DISPLAY?SCALE_DISPLAY
+  +--> ?PR?_DISPLAY?DISPLAY
+
+?PR?YI_DISPLAY?SCALE_DISPLAY
+  +--> ?PR?_DISPLAY?DISPLAY
+  +--> ?PR?_DELAY?DELAY
+
+*** NEW ROOT ***************************************************
+
+?PR?TIME?MAIN
+  +--> ?PR?CENTRE_DISPLAY?SCALE_DISPLAY
 
 
 
@@ -53,20 +112,20 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   ----------------------------------
 
   -------         MODULE        ?C_STARTUP
-  C:0052H         SEGMENT       ?C_C51STARTUP
-  I:0008H         SEGMENT       ?STACK
+  C:00A1H         SEGMENT       ?C_C51STARTUP
+  I:0021H         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
   D:0083H         SYMBOL        DPH
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/26/2024  23:56:08  PAGE 2
-
-
   D:0082H         SYMBOL        DPL
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/27/2024  00:55:21  PAGE 3
+
+
   N:0000H         SYMBOL        IBPSTACK
   N:0100H         SYMBOL        IBPSTACKTOP
   N:0080H         SYMBOL        IDATALEN
-  C:0055H         SYMBOL        IDATALOOP
+  C:00A4H         SYMBOL        IDATALOOP
   N:0000H         SYMBOL        PBPSTACK
   N:0100H         SYMBOL        PBPSTACKTOP
   N:0000H         SYMBOL        PDATALEN
@@ -75,18 +134,18 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   N:0000H         SYMBOL        PPAGEENABLE
   D:00A0H         SYMBOL        PPAGE_SFR
   D:0081H         SYMBOL        SP
-  C:0052H         SYMBOL        STARTUP1
+  C:00A1H         SYMBOL        STARTUP1
   N:0000H         SYMBOL        XBPSTACK
   N:0000H         SYMBOL        XBPSTACKTOP
   N:0000H         SYMBOL        XDATALEN
   N:0000H         SYMBOL        XDATASTART
   C:0000H         LINE#         126
-  C:0052H         LINE#         133
-  C:0054H         LINE#         134
-  C:0055H         LINE#         135
-  C:0056H         LINE#         136
-  C:0058H         LINE#         185
-  C:005BH         LINE#         196
+  C:00A1H         LINE#         133
+  C:00A3H         LINE#         134
+  C:00A4H         LINE#         135
+  C:00A5H         LINE#         136
+  C:00A7H         LINE#         185
+  C:00AAH         LINE#         196
   -------         ENDMOD        ?C_STARTUP
 
   -------         MODULE        MAIN
@@ -95,42 +154,115 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   D:00B0H         PUBLIC        P3
   D:00A8H         PUBLIC        IE
   D:00B8H         PUBLIC        IP
-  C:005EH         PUBLIC        main
+  D:0008H         PUBLIC        flag
+  C:020AH         PUBLIC        count_down_display
+  C:023BH         PUBLIC        main
+  B:0020H.0       PUBLIC        mode
+  C:000EH         PUBLIC        time
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
+  D:0009H         PUBLIC        sec
+  D:000AH         PUBLIC        min
+  D:008CH         PUBLIC        TH0
+  B:00B0H.0       PUBLIC        key_s1
+  D:008AH         PUBLIC        TL0
+  D:000BH         PUBLIC        num
+  D:000CH         PUBLIC        fq
+  D:000DH         PUBLIC        fw
+  D:000EH         PUBLIC        mq
+  D:000FH         PUBLIC        mw
   D:00C8H         PUBLIC        T2CON
+  D:0010H         PUBLIC        q
+  D:0011H         PUBLIC        w
   D:00D0H         PUBLIC        PSW
+  -------         PROC          COUNT_DOWN_DISPLAY
+  C:020AH         LINE#         10
+  C:020AH         LINE#         11
+  C:020AH         LINE#         12
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/27/2024  00:55:21  PAGE 4
+
+
+  C:0211H         LINE#         13
+  C:0218H         LINE#         14
+  C:021FH         LINE#         15
+  C:0226H         LINE#         16
+  C:022DH         LINE#         17
+  C:0234H         LINE#         18
+  -------         ENDPROC       COUNT_DOWN_DISPLAY
   -------         PROC          MAIN
-  C:005EH         LINE#         4
-  C:005EH         LINE#         5
-  C:005EH         LINE#         7
+  C:023BH         LINE#         21
+  C:023BH         LINE#         22
+  C:023BH         LINE#         23
+  C:023EH         LINE#         24
+  C:023EH         LINE#         25
+  C:0241H         LINE#         26
+  C:0248H         LINE#         27
+  C:024BH         LINE#         28
+  C:024BH         LINE#         29
+  C:024DH         LINE#         30
+  C:0250H         LINE#         31
+  C:0250H         LINE#         32
+  C:0253H         LINE#         33
+  C:0253H         LINE#         34
+  C:0256H         LINE#         35
+  C:0258H         LINE#         37
+  C:0258H         LINE#         38
+  C:025BH         LINE#         39
+  C:025BH         LINE#         40
   -------         ENDPROC       MAIN
+  -------         PROC          TIME
+  C:000EH         LINE#         44
+  C:002BH         LINE#         46
+  C:002EH         LINE#         47
+  C:0031H         LINE#         48
+  C:0033H         LINE#         49
+  C:0039H         LINE#         50
+  C:0039H         LINE#         51
+  C:003BH         LINE#         52
+  C:003DH         LINE#         53
+  C:003FH         LINE#         54
+  C:0048H         LINE#         55
+  C:0050H         LINE#         56
+  C:0058H         LINE#         57
+  C:0061H         LINE#         59
+  C:0061H         LINE#         60
+  C:0065H         LINE#         61
+  C:0065H         LINE#         62
+  C:0068H         LINE#         63
+  C:006AH         LINE#         64
+  C:0073H         LINE#         65
+  C:007BH         LINE#         66
+  C:007BH         LINE#         67
+  C:0081H         LINE#         68
+  C:0083H         LINE#         69
+  C:0086H         LINE#         70
+  -------         ENDPROC       TIME
   -------         ENDMOD        MAIN
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/27/2024  00:55:21  PAGE 5
+
 
   -------         MODULE        DELAY
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0090H         PUBLIC        P1
   D:00B0H         PUBLIC        P3
   D:00A8H         PUBLIC        IE
-  C:0003H         PUBLIC        _delay
+  C:027BH         PUBLIC        _delay
   D:00B8H         PUBLIC        IP
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
   D:00C8H         PUBLIC        T2CON
   D:00D0H         PUBLIC        PSW
   -------         PROC          _DELAY
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/26/2024  23:56:08  PAGE 3
-
-
   D:0006H         SYMBOL        a
   -------         DO            
   D:0006H         SYMBOL        i
   D:0004H         SYMBOL        j
   -------         ENDDO         
-  C:0003H         LINE#         4
-  C:0003H         LINE#         6
-  C:000CH         LINE#         7
-  C:0020H         LINE#         8
+  C:027BH         LINE#         4
+  C:027BH         LINE#         6
+  C:0284H         LINE#         7
+  C:0298H         LINE#         8
   -------         ENDPROC       _DELAY
   -------         ENDMOD        DELAY
 
@@ -147,28 +279,179 @@ SYMBOL TABLE OF MODULE:  .\Objects\basketball_recorder (?C_STARTUP)
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
   D:00C8H         PUBLIC        T2CON
-  C:0021H         PUBLIC        _display
+  C:0299H         PUBLIC        _display
   D:00D0H         PUBLIC        PSW
   -------         PROC          _DISPLAY
   D:0007H         SYMBOL        location
   D:0005H         SYMBOL        number
   -------         DO            
-  C:003FH         SYMBOL        locate
-  C:0047H         SYMBOL        tablel
+  C:02D3H         SYMBOL        locate
+  C:02DBH         SYMBOL        tablel
   -------         ENDDO         
-  C:0021H         LINE#         10
-  C:0021H         LINE#         38
-  C:0024H         LINE#         39
-  C:0026H         LINE#         40
-  C:002DH         LINE#         42
-  C:002FH         LINE#         43
-  C:0036H         LINE#         44
-  C:0038H         LINE#         45
+  C:0299H         LINE#         10
+  C:0299H         LINE#         38
+  C:029CH         LINE#         39
+  C:029EH         LINE#         40
+  C:02A5H         LINE#         42
+  C:02A7H         LINE#         43
+  C:02AEH         LINE#         44
+  C:02B0H         LINE#         45
   -------         ENDPROC       _DISPLAY
   -------         ENDMOD        DISPLAY
 
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_DISPLAY?DISPLAY
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/27/2024  00:55:21  PAGE 6
 
-Program Size: data=9.0 xdata=0 code=95
-LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)
+
+  -------         MODULE        TIMER
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  B:00A8H.1       PUBLIC        ET0
+  C:02E6H         PUBLIC        Init_timer0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  B:0088H.4       PUBLIC        TR0
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          INIT_TIMER0
+  C:02E6H         LINE#         8
+  C:02E6H         LINE#         9
+  C:02E6H         LINE#         10
+  C:02E9H         LINE#         11
+  C:02ECH         LINE#         12
+  C:02EFH         LINE#         13
+  C:02F1H         LINE#         14
+  C:02F3H         LINE#         15
+  C:02F5H         LINE#         16
+  -------         ENDPROC       INIT_TIMER0
+  -------         ENDMOD        TIMER
+
+  -------         MODULE        SCALE_DISPLAY
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  C:01CBH         PUBLIC        mode_select
+  D:00A8H         PUBLIC        IE
+  C:012DH         PUBLIC        jia_display
+  D:00B8H         PUBLIC        IP
+  D:0012H         PUBLIC        sign
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:017CH         PUBLIC        yi_display
+  B:00B0H.1       PUBLIC        key_s2
+  B:00B0H.2       PUBLIC        key_s3
+  B:00B0H.3       PUBLIC        key_s4
+  C:02B7H         PUBLIC        centre_display
+  D:0013H         PUBLIC        a
+  D:0014H         PUBLIC        b
+  D:0015H         PUBLIC        c
+  D:0016H         PUBLIC        d
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          JIA_DISPLAY
+  C:012DH         LINE#         10
+  C:012DH         LINE#         11
+  C:0134H         LINE#         12
+  C:013BH         LINE#         14
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/27/2024  00:55:21  PAGE 7
+
+
+  C:013EH         LINE#         15
+  C:0145H         LINE#         16
+  C:0148H         LINE#         17
+  C:014AH         LINE#         18
+  C:0150H         LINE#         19
+  C:0152H         LINE#         20
+  C:0154H         LINE#         21
+  C:0154H         LINE#         22
+  C:0157H         LINE#         23
+  C:0157H         LINE#         24
+  C:0157H         LINE#         25
+  C:015AH         LINE#         26
+  C:0161H         LINE#         27
+  C:0164H         LINE#         28
+  C:016AH         LINE#         29
+  C:0173H         LINE#         30
+  C:0173H         LINE#         31
+  C:0176H         LINE#         32
+  C:0178H         LINE#         33
+  C:0178H         LINE#         34
+  C:017BH         LINE#         35
+  C:017BH         LINE#         36
+  C:017BH         LINE#         37
+  -------         ENDPROC       JIA_DISPLAY
+  -------         PROC          CENTRE_DISPLAY
+  C:02B7H         LINE#         40
+  C:02B7H         LINE#         41
+  C:02B7H         LINE#         42
+  C:02BEH         LINE#         43
+  C:02C5H         LINE#         44
+  C:02CCH         LINE#         45
+  -------         ENDPROC       CENTRE_DISPLAY
+  -------         PROC          YI_DISPLAY
+  C:017CH         LINE#         50
+  C:017CH         LINE#         51
+  C:017CH         LINE#         52
+  C:0183H         LINE#         53
+  C:018AH         LINE#         54
+  C:018DH         LINE#         55
+  C:0194H         LINE#         56
+  C:0197H         LINE#         57
+  C:0199H         LINE#         58
+  C:019FH         LINE#         59
+  C:01A1H         LINE#         60
+  C:01A3H         LINE#         61
+  C:01A3H         LINE#         62
+  C:01A6H         LINE#         63
+  C:01A6H         LINE#         64
+  C:01A6H         LINE#         65
+  C:01A9H         LINE#         66
+  C:01B0H         LINE#         67
+  C:01B3H         LINE#         68
+  C:01B9H         LINE#         69
+  C:01C2H         LINE#         70
+  C:01C5H         LINE#         71
+  C:01C7H         LINE#         72
+  C:01C7H         LINE#         73
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  08/27/2024  00:55:21  PAGE 8
+
+
+  C:01CAH         LINE#         74
+  C:01CAH         LINE#         75
+  C:01CAH         LINE#         76
+  -------         ENDPROC       YI_DISPLAY
+  -------         PROC          MODE_SELECT
+  C:01CBH         LINE#         79
+  C:01CBH         LINE#         80
+  C:01CBH         LINE#         81
+  C:01CEH         LINE#         82
+  C:01D5H         LINE#         83
+  C:01D8H         LINE#         84
+  C:01DBH         LINE#         85
+  C:01DEH         LINE#         86
+  C:01DEH         LINE#         87
+  C:01DEH         LINE#         88
+  C:01E2H         LINE#         89
+  C:01E2H         LINE#         90
+  C:01E5H         LINE#         91
+  C:01E8H         LINE#         92
+  C:01EFH         LINE#         93
+  C:01F3H         LINE#         94
+  C:01F5H         LINE#         95
+  C:01F5H         LINE#         96
+  C:01F8H         LINE#         97
+  C:01FBH         LINE#         98
+  C:0202H         LINE#         99
+  C:0209H         LINE#         100
+  C:0209H         LINE#         102
+  -------         ENDPROC       MODE_SELECT
+  -------         ENDMOD        SCALE_DISPLAY
+
+Program Size: data=24.1 xdata=0 code=750
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

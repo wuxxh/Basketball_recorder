@@ -1,0 +1,133 @@
+C51 COMPILER V9.60.0.0   SCALE_DISPLAY                                                     08/27/2024 00:55:21 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SCALE_DISPLAY
+OBJECT MODULE PLACED IN .\Objects\scale_display.obj
+COMPILER INVOKED BY: D:\Keil_v5\C51\BIN\C51.EXE scale_display.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\scale_display.lst) TABS(2) OBJECT(.\Objects\scale_display.obj)
+
+line level    source
+
+   1          #include "reg52.h"
+   2          #include "display.h"
+   3          #include "scale_display.h"
+   4          #include "delay.h"
+   5          
+   6          unsigned char a=0,b=0,c=0,d=0;
+   7          unsigned char sign=0;
+   8          
+   9          //甲方分数显示
+  10          void jia_display(){
+  11   1        display(1,a); //数码管第一个显示0
+  12   1        display(2,b); //数码管第二个显示0
+  13   1        
+  14   1        if(key_s3==0){
+  15   2          delay(5); //去抖
+  16   2          if(key_s3==0){
+  17   3            b++; //第二位
+  18   3            if(b==10){
+  19   4              b=0;
+  20   4              a++; //进位
+  21   4            }
+  22   3            while(!key_s3); //确保按键完全抬起
+  23   3          }
+  24   2        }
+  25   1        if(key_s4==0){
+  26   2          delay(5);
+  27   2          if(key_s4==0){
+  28   3            b+=3;
+  29   3            if(b>=10)
+  30   3            {
+  31   4              b=0;
+  32   4              a++;
+  33   4            }
+  34   3            while(!key_s4);
+  35   3          }
+  36   2        }
+  37   1      }
+  38          
+  39          //中间部分显示
+  40          void centre_display()
+  41          {
+  42   1        display(3,10);
+  43   1        display(4,10);
+  44   1        display(5,10);
+  45   1        display(6,10);
+  46   1      }
+  47          
+  48          
+  49          //乙部分显示
+  50          void yi_display()
+  51          {
+  52   1        display(7,c);
+  53   1        display(8,d);
+  54   1        if(key_s3==0){
+C51 COMPILER V9.60.0.0   SCALE_DISPLAY                                                     08/27/2024 00:55:21 PAGE 2   
+
+  55   2          delay(5);
+  56   2          if(key_s3==0){
+  57   3            d++;
+  58   3            if(d==10){
+  59   4              d=0;
+  60   4              c++;
+  61   4            }
+  62   3            while(!key_s3);
+  63   3          }
+  64   2        }
+  65   1        if(key_s4==0){
+  66   2          delay(5);
+  67   2          if(key_s4==0){
+  68   3            d+=3;
+  69   3            if(d>=10){
+  70   4              d=0;
+  71   4              c++;
+  72   4            }
+  73   3            while(!key_s4);
+  74   3          }
+  75   2        }
+  76   1      }
+  77          
+  78          //选择加分模式
+  79          void mode_select()
+  80          {
+  81   1        if(key_s2==0){
+  82   2          delay(5);
+  83   2          if(key_s2==0){
+  84   3            sign = ~sign;
+  85   3            while(!key_s2);
+  86   3          }
+  87   2        }
+  88   1        if(sign==0)
+  89   1        {
+  90   2          jia_display();
+  91   2          centre_display();
+  92   2          display(7,c);
+  93   2          display(8,d);
+  94   2        }
+  95   1        else{
+  96   2          yi_display();
+  97   2          centre_display();
+  98   2          display(1,a);
+  99   2          display(2,b);
+ 100   2        }
+ 101   1          
+ 102   1      }
+ 103          
+ 104          
+ 105          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    249    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      5    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+C51 COMPILER V9.60.0.0   SCALE_DISPLAY                                                     08/27/2024 00:55:21 PAGE 3   
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
