@@ -5,6 +5,10 @@
 sbit WE = P2^7; //led
 sbit DU = P2^6; //led
 
+sbit lsc = P2^4;
+sbit lsb = P2^3;
+sbit lsa = P2^2;
+
 #define SMG_PORT P0 //定义数码管段码口
 
 void display(unsigned char location,unsigned char number){
