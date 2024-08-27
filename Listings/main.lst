@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   MAIN                                                              08/27/2024 00:55:20 PAGE 1   
+C51 COMPILER V9.60.0.0   MAIN                                                              08/27/2024 08:36:27 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52   2          flag++;
   53   2          sec--;
   54   2          q = sec%10;
-C51 COMPILER V9.60.0.0   MAIN                                                              08/27/2024 00:55:20 PAGE 2   
+C51 COMPILER V9.60.0.0   MAIN                                                              08/27/2024 08:36:27 PAGE 2   
 
   55   2            w = sec/10;
   56   2          fw=flag/10;
@@ -78,17 +78,16 @@ line level    source
   66   2        }
   67   1        if(flag==24)
   68   1          flag=0;
-  69   1        centre_display();
-  70   1      }
+  69   1      }
+  70          
   71          
   72          
   73          
   74          
-  75          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    230    ----
+   CODE SIZE        =    184    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
